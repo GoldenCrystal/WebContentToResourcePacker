@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BuildOutputTargetFolder>tools</BuildOutputTargetFolder>
+    <NoPackageAnalysis>True</NoPackageAnalysis>
+    <Authors>Fabien Barbier</Authors>
+    <Description>MSBuild tool for ASP.NET Core to pack wwwroot contents into embedded resources.</Description>
+    <Copyright>Copyright © Fabien Barbier 2017</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/GoldenCrystal/WebContentToResourcePacker.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/GoldenCrystal/WebContentToResourcePacker</PackageProjectUrl>
+    <PackageTags>ASP ASP.NET Core MSBuild Pack Resources wwwroot</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="build\*.props;build\*.targets">
+      <Pack>true</Pack>
+      <PackagePath>build\</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="14.3" ExcludeAssets="Runtime" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask
+    TaskName="GenerateFileResources"
+    AssemblyFile="$(MSBuildThisFileDirectory)../tools/net46/WebContentToResourcePacker.dll" />
+  <PropertyGroup>
+    <PrepareResourcesDependsOn>
+      PackWebContentIntoResources;
+      $(PrepareResourcesDependsOn)
+    </PrepareResourcesDependsOn>
+  </PropertyGroup>
+  <Target Name="PackWebContentIntoResources" Condition="'@(WebContent)'!=''">
+    <GenerateFileResources InputFiles="@(WebContent)" OutputFile="$(BaseIntermediateOutputPath)wwwroot.resources">
+      <Output TaskParameter="OutputFile" ItemName="_GeneratedWebContentResources" />
+    </GenerateFileResources>
+    <ItemGroup>
+      <EmbeddedResource Include="@(_GeneratedWebContentResources)">
+        <LogicalName>%(FileName)%(Extension)</LogicalName>
+      </EmbeddedResource>
+      <_GeneratedWebContentResources Remove="@(_GeneratedWebContentResources)" />
+    </ItemGroup>
+  </Target>
+</Project>
